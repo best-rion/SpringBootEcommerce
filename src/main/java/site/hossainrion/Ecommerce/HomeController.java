@@ -1,6 +1,7 @@
 package site.hossainrion.Ecommerce;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Controller;
@@ -11,27 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController
 {
-	public class Product
-	{
-		public String name;
-		public int price;
-		
-		public Product(String name, int price)
-		{
-			this.name = name;
-			this.price = price;
-		}
-	}
-	
 	@GetMapping("/home")
-    public String home(Model model)
+    public String home(Model model) throws IOException
 	{
-		ArrayList<Product> products = new ArrayList<Product>();
-		products.add( new Product("apple",25));
-		products.add( new Product("orange",35));
+		String jsonContent = Json.jsonToString("watches.json");
+		Product[] products = Json.getProducts(jsonContent);
 		
 		
-		model.addAttribute("fruits", products);
-		return "home";
+		model.addAttribute("watches", products);
+		return "home2";
     }
 }
