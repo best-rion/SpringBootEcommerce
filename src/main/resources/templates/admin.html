@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Admin page</title>
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link th:href="@{css/styles.css}" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#!">HORIZON WATCHES</a>
+            </div>
+        </nav>
+		
+		
+		<section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+				
+				<form action="#" th:action="@{/admin}" th:object="${watch}" method="post">
+					
+				  <div class="form-group">
+	 				<label for="exampleInputBrand">Brand</label>
+	 				<input type="text" th:field="*{brand}" class="form-control" placeholder="Brand Name">
+	 			  </div>
+				  <div class="form-group">
+				    <label for="exampleInputName">Name</label>
+				    <input type="text" th:field="*{name}" class="form-control" placeholder="Product Name">
+				  </div>
+				  <div class="form-group">
+  				    <label for="exampleInputPrice">Price</label>
+  				    <input type="text" th:field="*{price}" class="form-control" placeholder="Product's Price">
+  				  </div>
+				  <div class="form-group">
+  				    <label for="exampleInputStock">Stock</label>
+  				    <input type="text" th:field="*{stock}" class="form-control" placeholder="Quantity in Stock">
+  				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputPic">URL to Picture</label>
+				    <input type="text" th:field="*{pic_url}" class="form-control" placeholder="Picutre URL">
+				  </div>
+
+				  <button type="submit" class="btn btn-primary mt-3">Submit</button>
+				  
+				</form>
+			</div>
+		</section>
+		
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
