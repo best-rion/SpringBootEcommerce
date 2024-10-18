@@ -13,8 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class AdminController
 {
 	@Autowired 
-	private UserRepository userRepository;
-	
+	private ProductRepository productRepository;
 	
 	
 	@GetMapping("/admin")
@@ -28,7 +27,7 @@ public class AdminController
 	public String save(@ModelAttribute Product product, Model model)
     {		                                 // ^------- This is what we get from submitted form
 		
-		userRepository.save(product);
+		productRepository.save(product);
 		model.addAttribute("result", product);
 		return "success";
 
