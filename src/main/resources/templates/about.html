@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -20,7 +22,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="@{/about}">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
                     </ul>
                     <button class="btn btn-outline-success" type="submit">
                         <i class="bi-cart-fill me-1"></i>
@@ -40,37 +42,24 @@
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 					
-					
-                    <div class="col mb-5" th:each="watch : ${ watches }">
-                        <div class="card h-100">
-                            <!-- Product image-->
-							
-							<div class="row">
-				              	<div class="col-3"></div>
-				             	 	<!-- Product image-->
-				                 	<div class="col-6 mt-5" style="text-align: center;">
-							 			<img class="card-img-top" th:src="${ watch.pic_url }" alt="..." />
-				                 	</div>
-				             	<div class="col-3"></div>
-					        </div>
-
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-									<!-- Brand name-->
-									<h5 class="fw-bolder" th:text="${ watch.brand }"></h5>
-                                    <!-- Product name-->
-                                    <h6 class="text-secondary" th:text="${ watch.name }"></h6>
-                                    <!-- Product price-->
-                                    <p>৳ <span th:text="${ watch.price + 100 }"></p>
-                                </div>
+					<div class="container mt-5">
+                        <div class="row py-5">
+                            <div class="col-lg-6">
+                                <h1 class="display-5" style="border-bottom: 2px solid #198754;">About E-commerce</h1>
+                                <p class="mt-5 font-weight-normal" style="word-spacing: 5px;">
+                                    Welcome to E-commerce, your one-stop destination for all your shopping needs. At E-commerce, we are dedicated to providing you with an unparalleled online shopping experience, offering a wide range of high-quality products at competitive prices. Our user-friendly platform ensures a seamless and secure shopping journey, while our customer-centric approach guarantees exceptional service. Whether you're looking for the latest gadgets, trendy fashion, or everyday essentials, E-commerce has you covered. Shop with us today and discover the convenience and joy of online shopping at its finest.
+                                </p>
+                                <p class="mb-5 font-weight-normal" style="word-spacing: 5px;">
+                                    Fast forward again, and we have this, the 116610LV, which really doubles down on the whole green theme by adding a green dial. With the ceramic of the bezel giving the green hue a silvery tone, and the dial gleaming with a sunburst flash under the right light, the Rolex Submariner LV may not exude quite the same hardy resilience as its originator — but as a celebration? It’s near-on perfect.            </p>
                             </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-success mt-auto" href="#">View options</a></div>
+                            <div class="col-lg-6 my-auto text-center">
+                                <img class="img-fluid" th:src="${images/about.jpg}" alt="...">
                             </div>
                         </div>
                     </div>
+                    
+                    
+                    
 					
 					
                 </div>
