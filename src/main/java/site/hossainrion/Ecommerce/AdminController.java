@@ -28,8 +28,8 @@ public class AdminController
     {		                                 // ^------- This is what we get from submitted form
 		
 		productRepository.save(product);
-		model.addAttribute("result", product);
-		return "success";
+		
+		return "redirect:admin";
 
     }
 }

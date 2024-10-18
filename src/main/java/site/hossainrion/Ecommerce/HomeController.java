@@ -24,4 +24,10 @@ public class HomeController
 		model.addAttribute("watches", products);
 		return "home";
     }
+	
+	@GetMapping("/about")
+    public String about()
+	{
+		return "about";
+    }
 }
