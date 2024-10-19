@@ -18,7 +18,7 @@ public class CartRestController
 	CartRepository cartRepository;
 
 	@PutMapping(value="/addToCart")
-    void home(@RequestBody String id)
+    String home(@RequestBody String id)
 	{
 		int product_id = Integer.parseInt(id);
 		
@@ -42,11 +42,11 @@ public class CartRestController
 			
 			cartRepository.save(newCart);
 			
-			System.out.println("//Product inserted");
+			return "1";
 		}
 		else
 		{
-			System.out.println("//Already in cart");
+			return "0";
 		}
 		
     }

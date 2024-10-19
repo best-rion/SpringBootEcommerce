@@ -8,9 +8,13 @@ function putRequest(id)
             'Content-Type': 'text/plain'
         },
         body: id
-    }).then(data => console.log)
-
-
-    var itemNumber = document.getElementById("itemNumber")
-    itemNumber.innerHTML = ""+(parseInt(itemNumber.innerHTML)+1)
+    })
+	.then(response=>response.text())
+	.then(body=>{
+		if (body === "1")
+		{
+			var itemNumber = document.getElementById("itemNumber")
+			itemNumber.innerHTML = ""+(parseInt(itemNumber.innerHTML)+1)
+		} 
+	})
 }

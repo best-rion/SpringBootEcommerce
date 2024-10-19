@@ -40,14 +40,7 @@ public class HomeController
 		}
 		else
 		{
-			if( CurrentUser.id == 0)
-			{
-				return "redirect:/home";
-			}
-			else
-			{
-				return String.format("redirect:/home/user-%d", CurrentUser.id);
-			}
+			return (CurrentUser.id == 0) ? "redirect:/home" : String.format("redirect:/home/user-%d", CurrentUser.id);
 		}
     }
 	
