@@ -1,4 +1,4 @@
-package site.hossainrion.Ecommerce;
+package site.hossainrion.Ecommerce.cart;
 
 
 import java.util.List;
@@ -8,5 +8,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface CartRepository extends CrudRepository<Cart, Integer> 
 {
-	List<Cart> findByOwner(int id);
+	List<Cart> findByOwnerRef(int userId);
 }

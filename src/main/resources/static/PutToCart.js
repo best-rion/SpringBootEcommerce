@@ -1,7 +1,7 @@
 
 function putRequest(id)
 {
-	fetch("http://localhost:8080/cartService",{
+	fetch("http://localhost:8080/addToCart",{
 
         method: 'PUT',
         headers: {

@@ -1,4 +1,4 @@
-package site.hossainrion.Ecommerce;
+package site.hossainrion.Ecommerce.cart;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,28 +12,19 @@ public class Cart
 {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int item_id;
+	private int id;
 	
-	private int product;
+	private int productRef;
 	private int quantity;
-	private int owner;
+	private int ownerRef;
 	
-	public int getItem_id()
+	public int getId()
 	{
-		return item_id;
+		return id;
 	}
 	
-	public void setItem_id(int item_id) {
-		this.item_id = item_id;
-	}
-	
-	public int getProduct()
-	{
-		return product;
-	}
-	
-	public void setProduct(int product) {
-		this.product = product;
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	public int getQuantity()
@@ -44,14 +35,21 @@ public class Cart
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
-	public int getOwner()
-	{
-		return owner;
+
+	public int getProductRef() {
+		return productRef;
 	}
-	
-	public void setOwner(int owner) {
-		this.owner = owner;
+
+	public void setProductRef(int productRef) {
+		this.productRef = productRef;
+	}
+
+	public int getOwnerRef() {
+		return ownerRef;
+	}
+
+	public void setOwnerRef(int ownerRef) {
+		this.ownerRef = ownerRef;
 	}
 	
 }

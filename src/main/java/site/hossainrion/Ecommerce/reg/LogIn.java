@@ -25,7 +25,7 @@ public class LogIn
 	}
 	
 	@PostMapping("/login")
-	public String loginPost(@ModelAttribute FormUser formUser,Model model)
+	public String loginPost(@ModelAttribute FormUser formUser)
 	{
 		User dbUser = userRepo.findByUsername(formUser.getUsername());
 		
@@ -41,6 +41,6 @@ public class LogIn
 			System.out.println("Failure");
 		}
 		
-		return "redirect:home";
+		return String.format("redirect:/home/user-%d", CurrentUser.id);
 	}
 }

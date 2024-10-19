@@ -13,7 +13,7 @@ public class Product
 {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int product_id;
+	private int id;
 	
 	private String brand;
 	public String name;
@@ -21,13 +21,13 @@ public class Product
 	public int stock;
 	public String pic_url;
 	
-	public int getProduct_id()
+	public int getId()
 	{
-		return product_id;
+		return id;
 	}
 	
-	public void setProduct_id(int product_id) {
-		this.product_id = product_id;
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	public String getBrand()
