@@ -10,6 +10,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link th:href="@{css/styles.css}" rel="stylesheet" />
+        
     </head>
     <body>
         <!-- Navigation-->
@@ -25,7 +26,7 @@
                     <button class="btn btn-outline-success" type="submit">
                         <i class="bi-cart-fill me-1"></i>
                         Cart
-                        <span class="badge bg-success text-white ms-1 rounded-pill">0</span>
+                        <span class="badge bg-success text-white ms-1 rounded-pill" id="itemNumber">0</span>
                     </button>
                 </div>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -62,12 +63,12 @@
                                     <!-- Product name-->
                                     <h6 class="text-secondary" th:text="${ watch.name }"></h6>
                                     <!-- Product price-->
-                                    <p>৳ <span th:text="${ watch.price + 100 }"></p>
+                                    <p>৳ <span th:text="${ watch.price + 100 }"></span></p>
                                 </div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-success mt-auto" href="#">View options</a></div>
+                                <div class="text-center"><button class="btn btn-outline-success mt-auto" th:onclick="'putRequest('+${watch.product_id}+')'">Add to cart</button></div>
                             </div>
                         </div>
                     </div>
@@ -79,6 +80,7 @@
 
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script th:src="@{PutToCart.js}"></script>
     </body>
 </html>
 v
