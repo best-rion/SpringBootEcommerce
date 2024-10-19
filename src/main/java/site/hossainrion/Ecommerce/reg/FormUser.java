@@ -1,4 +1,4 @@
-package site.hossainrion.Ecommerce;
+package site.hossainrion.Ecommerce.reg;
 
 
 public class FormUser

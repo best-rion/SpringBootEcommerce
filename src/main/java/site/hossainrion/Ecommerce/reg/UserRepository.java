@@ -1,4 +1,4 @@
-package site.hossainrion.Ecommerce;
+package site.hossainrion.Ecommerce.reg;
 
 import org.springframework.data.repository.CrudRepository;
 
