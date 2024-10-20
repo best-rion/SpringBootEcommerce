@@ -1,6 +1,8 @@
 package site.hossainrion.Ecommerce.cart;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.itextpdf.text.DocumentException;
 
 import site.hossainrion.Ecommerce.CurrentUser;
 import site.hossainrion.Ecommerce.home.ProductRepository;
@@ -22,7 +26,7 @@ public class CartController
 	ProductRepository productRepository;
 
 	@GetMapping("/cart")
-    public String home(Model model) throws IOException
+    public String cart(Model model) throws IOException
 	{
 		List<Cart> cart_items = cartRepository.findByOwnerRef(CurrentUser.id);
 		
@@ -49,6 +53,38 @@ public class CartController
 		return "cart";
     }
 	
-	
+	@GetMapping("/printCart")
+    public String printCart() throws IOException
+	{
+		List<Cart> cart_items = cartRepository.findByOwnerRef(CurrentUser.id);
+		
+		List<Item> items = new ArrayList<Item>();
+		for (Cart cart_item : cart_items)
+		{
+			Item item = new Item();
+			item.product = productRepository.findById(cart_item.getProductRef());
+			item.quantity = cart_item.getQuantity();
+			
+			items.add(item);
+		}
+		try
+		{
+			PdfCreator.create(items);
+		}
+		catch(FileNotFoundException ex)
+		{
+			ex.printStackTrace();
+		}
+		catch(DocumentException ex)
+		{
+			ex.printStackTrace();
+		}
+		catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "redirect:/home";
+    }
 	
 }
