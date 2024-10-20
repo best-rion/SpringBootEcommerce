@@ -16,16 +16,26 @@ public class SignUp
 	@GetMapping("/signup")
 	public String signupGet(Model model)
 	{
-		model.addAttribute("userInfo", new User());
+		model.addAttribute("userInfo", new FormUser());
 		
 		return "signup";
 	}
 	
 	@PostMapping("/signup")
-	public String signupPost(@ModelAttribute User user,Model model)
+	public String signupPost(@ModelAttribute FormUser user, Model model)
 	{
-		userRepo.save(user);
-		
-		return "redirect:login";
+    	if ( user.getPassword().equals(user.getConfirm_password()))
+    	{
+    		User newUser = new User();
+    		newUser.setUsername(user.getUsername());
+    		newUser.setPassword(user.getPassword());
+    		
+    		userRepo.save(newUser);
+    		return "redirect:/login";
+    	}
+    	else
+    	{
+    		return "redirect:/signup";
+    	}
 	}
 }

@@ -28,6 +28,8 @@ public class CartController
 		
 		List<Item> items = new ArrayList<Item>();
 		
+		int totalQty = 0;
+		int totalPrice = 0;
 		for (Cart cart_item : cart_items)
 		{
 			Item item = new Item();
@@ -35,9 +37,18 @@ public class CartController
 			item.quantity = cart_item.getQuantity();
 			
 			items.add(item);
+			
+			totalQty += cart_item.getQuantity();
+			totalPrice += item.product.getPrice() * cart_item.getQuantity();
 		}
 		
+		model.addAttribute("totalQty", totalQty);
+		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("items", items);
+		model.addAttribute("notLoggedIn", (CurrentUser.id == 0));
 		return "cart";
     }
+	
+	
+	
 }

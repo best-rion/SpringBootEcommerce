@@ -19,7 +19,8 @@ public class Product
 	public String name;
 	public int price;
 	public int stock;
-	public String pic_url;
+	public String pic_url;	
+
 	
 	public int getId()
 	{

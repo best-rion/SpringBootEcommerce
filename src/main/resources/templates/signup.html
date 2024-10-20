@@ -15,27 +15,45 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#!">HORIZON WATCHES</a>
+                <b class="navbar-brand">HORIZON WATCHES</b>
             </div>
         </nav>
 		
 		
 		<section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
-				<h2>Sign Up</h2>
-				<form action="#" th:action="@{/signup}" th:object="${userInfo}" method="post">
-					
-				  <div class="form-group">
-	 				<input type="text" th:field="*{username}" class="form-control" placeholder="Username">
-	 			  </div>
-				  <br><br>
-				  <div class="form-group">
-				    <input type="password" th:field="*{password}" class="form-control" placeholder="Password">
-				  </div>
-				  <br>
-				  <button type="submit" class="btn btn-primary mt-3">Submit</button>
-				  
-				</form>
+				
+				<div class="row">
+                    <div class="col-md-4"></div>
+
+                    <div class="col-md-4">
+						
+						<h2>Sign Up</h2>
+						<form action="#" th:action="@{/signup}" th:object="${userInfo}" method="post">
+							
+						  <div class="form-group">
+			 				<input type="text" th:field="*{username}" class="form-control" placeholder="Username">
+			 			  </div>
+						  <br><br>
+						  <div class="form-group">
+						    <input type="password" th:field="*{password}" class="form-control" placeholder="Password">
+						  </div>
+                          <br>
+						  <div class="form-group">
+  						    <input type="password" th:field="*{confirm_password}" class="form-control" placeholder="Confirm Password">
+  						  </div>
+						  <br>
+						  <button type="submit" class="btn btn-primary my-3">Submit</button>
+						  
+						</form>
+
+                        <div>
+                            <p>Already have an account? <a th:href="@{/login}">login</a></p>
+                        </div>
+
+                 	 <div class="col-md-4"></div>
+              	</div>
+						  
 			</div>
 		</section>
 		

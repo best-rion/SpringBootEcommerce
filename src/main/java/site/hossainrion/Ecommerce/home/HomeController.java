@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import site.hossainrion.Ecommerce.CurrentUser;
+import site.hossainrion.Ecommerce.cart.Cart;
+import site.hossainrion.Ecommerce.cart.CartRepository;
 
 
 @Controller
@@ -18,6 +20,9 @@ public class HomeController
 {
 	@Autowired
 	ProductRepository productRepository;
+	
+	@Autowired
+	CartRepository cartRepository;
 
 	@GetMapping("/home")
     public String home(Model model) throws IOException
@@ -25,16 +30,28 @@ public class HomeController
 		List<Product> products = (List<Product>) productRepository.findAll();		
 		
 		model.addAttribute("watches", products);
-		return "home";
+		model.addAttribute("notLoggedIn", (CurrentUser.id == 0));
+		
+		return (CurrentUser.id == 0) ? "home" : String.format("redirect:/home/user-%d", CurrentUser.id);
     }
 	
 	@GetMapping("/home/user-{id}")
-    public String homeUser(@PathVariable int id, Model model)
+    public String homeUser(@PathVariable int id, Model model) throws IOException
 	{
 		if (id == CurrentUser.id)
 		{
-			List<Product> products = (List<Product>) productRepository.findAll();		
+			List<Product> products = (List<Product>) productRepository.findAll();
 			
+			List<Cart> cart_items = cartRepository.findByOwnerRef(id);
+			
+			
+			int totalQty = 0;
+			for (Cart cart_item : cart_items )
+			{
+				totalQty += cart_item.getQuantity();
+			}
+			
+			model.addAttribute("totalQty", totalQty);
 			model.addAttribute("watches", products);
 			return "home";
 		}
@@ -45,8 +62,9 @@ public class HomeController
     }
 	
 	@GetMapping("/about")
-    public String about()
+    public String about(Model model)
 	{
+		model.addAttribute("notLoggedIn", (CurrentUser.id == 0));
 		return "about";
     }
 }
