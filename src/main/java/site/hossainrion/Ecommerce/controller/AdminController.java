@@ -1,4 +1,4 @@
-package site.hossainrion.Ecommerce.admin;
+package site.hossainrion.Ecommerce.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import site.hossainrion.Ecommerce.home.ProductRepository;
-import site.hossainrion.Ecommerce.home.Product;
+import site.hossainrion.Ecommerce.repository.ProductRepository;
+import site.hossainrion.Ecommerce.model.Product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

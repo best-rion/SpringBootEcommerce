@@ -1,7 +1,7 @@
-package site.hossainrion.Ecommerce.reg;
+package site.hossainrion.Ecommerce.DTO;
 
 
-public class FormUser
+public class UserDTO
 {
 	private String username;
 	private String password;

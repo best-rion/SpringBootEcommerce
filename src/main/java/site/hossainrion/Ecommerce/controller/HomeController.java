@@ -1,4 +1,4 @@
-package site.hossainrion.Ecommerce.home;
+package site.hossainrion.Ecommerce.controller;
 
 
 import java.io.IOException;
@@ -10,9 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import site.hossainrion.Ecommerce.CurrentUser;
-import site.hossainrion.Ecommerce.cart.Cart;
-import site.hossainrion.Ecommerce.cart.CartRepository;
+import site.hossainrion.Ecommerce.util.CurrentUser;
+import site.hossainrion.Ecommerce.model.Cart;
+import site.hossainrion.Ecommerce.model.Product;
+import site.hossainrion.Ecommerce.repository.CartRepository;
+import site.hossainrion.Ecommerce.repository.ProductRepository;
 
 
 @Controller

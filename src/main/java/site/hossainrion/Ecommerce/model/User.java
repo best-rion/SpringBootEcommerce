@@ -1,4 +1,4 @@
-package site.hossainrion.Ecommerce.reg;
+package site.hossainrion.Ecommerce.model;
 
 
 import jakarta.persistence.Entity;
@@ -17,6 +17,8 @@ public class User
 	private int id;
 	private String username;
 	private String password;
+	
+
 	
 	public int getID()
 	{
@@ -45,6 +47,6 @@ public class User
 	
 	public void setPassword(String password)
 	{
-		this.password = BCrypt.hash(password);
+		this.password = password;
 	}
 }

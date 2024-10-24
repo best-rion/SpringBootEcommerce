@@ -1,4 +1,4 @@
-package site.hossainrion.Ecommerce.cart;
+package site.hossainrion.Ecommerce.repository;
 
 
 import java.util.List;
@@ -9,9 +9,11 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import jakarta.transaction.Transactional;
+import site.hossainrion.Ecommerce.model.Cart;
 
 public interface CartRepository extends CrudRepository<Cart, Integer> 
-{
+{	
+	@Query(value = "SELECT * from cart where owner_ref = :userId AND sold = 0", nativeQuery = true)
 	List<Cart> findByOwnerRef(int userId);
 	
 	@Modifying

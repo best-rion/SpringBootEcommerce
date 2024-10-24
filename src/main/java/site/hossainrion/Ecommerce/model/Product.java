@@ -1,4 +1,4 @@
-package site.hossainrion.Ecommerce.home;
+package site.hossainrion.Ecommerce.model;
 
 
 import jakarta.persistence.Entity;

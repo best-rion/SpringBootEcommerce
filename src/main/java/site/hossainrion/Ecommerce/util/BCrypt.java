@@ -1,4 +1,4 @@
-package site.hossainrion.Ecommerce.reg;
+package site.hossainrion.Ecommerce.util;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

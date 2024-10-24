@@ -1,4 +1,4 @@
-package site.hossainrion.Ecommerce.cart;
+package site.hossainrion.Ecommerce.controller;
 
 
 import java.util.List;
@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import site.hossainrion.Ecommerce.CurrentUser;
-import site.hossainrion.Ecommerce.home.Product;
-import site.hossainrion.Ecommerce.home.ProductRepository;
+import site.hossainrion.Ecommerce.util.CurrentUser;
+import site.hossainrion.Ecommerce.model.Cart;
+import site.hossainrion.Ecommerce.model.Product;
+import site.hossainrion.Ecommerce.repository.CartRepository;
+import site.hossainrion.Ecommerce.repository.ProductRepository;
 
 
 @RestController
@@ -21,6 +23,8 @@ public class CartRestController
 	
 	@Autowired
 	ProductRepository productRepository;
+
+
 
 	@PutMapping(value="/addToCart")
     String addToCart(@RequestBody String id)
@@ -123,4 +127,5 @@ public class CartRestController
 		cartRepository.deleteByProductRefAndOwnerRef(product_id, CurrentUser.id);
 		
     }
+	
 }

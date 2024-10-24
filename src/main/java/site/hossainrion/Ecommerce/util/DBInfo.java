@@ -1,4 +1,4 @@
-package site.hossainrion.Ecommerce.Database;
+package site.hossainrion.Ecommerce.util;
 
 
 public class DBInfo

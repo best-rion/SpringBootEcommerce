@@ -1,10 +1,14 @@
-package site.hossainrion.Ecommerce.cart;
+package site.hossainrion.Ecommerce.model;
+
+import java.util.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "cart")
@@ -17,6 +21,10 @@ public class Cart
 	private int productRef;
 	private int quantity;
 	private int ownerRef;
+	private boolean sold = false;
+	
+	@Temporal(TemporalType.DATE)
+    private Date soldDate;
 	
 	public int getId()
 	{
@@ -51,5 +59,22 @@ public class Cart
 	public void setOwnerRef(int ownerRef) {
 		this.ownerRef = ownerRef;
 	}
+
+	public boolean isSold() {
+		return sold;
+	}
+
+	public void setSold(boolean sold) {
+		this.sold = sold;
+	}
+
+	public Date getSoldDate() {
+		return soldDate;
+	}
+
+	public void setSoldDate(Date soldDate) {
+		this.soldDate = soldDate;
+	}
+
 	
 }

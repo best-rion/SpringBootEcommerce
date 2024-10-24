@@ -6,7 +6,7 @@ public class App
 {
     public static void main(String[] args)
     {
-        String jsonContent = Json.jsonToString("/home/hossain/Desktop/JsonToDB/myPackage/watches.json");
+        String jsonContent = Json.jsonToString("/home/hossain/Desktop/Ecommerce/SideProjects/JsonToDB/myPackage/watches.json");
         Product[] products = Json.getProducts(jsonContent);
 
         try {
