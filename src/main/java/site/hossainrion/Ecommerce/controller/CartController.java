@@ -73,7 +73,6 @@ public class CartController
 		model.addAttribute("totalQty", totalQty);
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("items", items);
-		model.addAttribute("notLoggedIn", 0);
 		return "cart";
     }
 	
@@ -95,7 +94,6 @@ public class CartController
 			
 			items.add(item);
 			
-			
 			cart_item.setSold(true);
 			cart_item.setSoldDate(new Date());
 			cartRepository.save(cart_item);
@@ -114,18 +112,13 @@ public class CartController
 										                    .filename("receipt.pdf", StandardCharsets.UTF_8)
 										                    .build()
 										                    .toString());
-
 			is.transferTo(response.getOutputStream());
-
-
 		}
 		catch(FileNotFoundException | DocumentException | URISyntaxException  ex)
 		{
 			ex.printStackTrace();
 		}
-		
+
 		return "redirect:/cart";
-		//
     }
-	
 }

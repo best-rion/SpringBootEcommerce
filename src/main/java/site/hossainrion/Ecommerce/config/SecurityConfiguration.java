@@ -19,12 +19,14 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration
 {
     
-    
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         //declares which Page(URL) will have What access type
         http
+        	.csrf((csrf)->
+        		csrf.disable()
+        	)
         	.authorizeHttpRequests((authReq) ->
 	        	authReq
 	        		.requestMatchers("/cart", "/addToCart", "/increaseQty", "/decreaseQty").hasAuthority("CUSTOMER")
@@ -40,7 +42,8 @@ public class SecurityConfiguration
         	.logout((logout) -> 
 	        	logout
 	        		.logoutSuccessUrl("/home")
-	        		.permitAll());;
+	        		.permitAll()
+	        );
         					
         
     return http.build();

@@ -40,29 +40,34 @@ public class CartRestController
 		String username =  auth.getName();
 		User principal = userRepository.findByUsername(username);
 		
+
+		System.out.println(principal);
 		
 		
-		List<Cart> user_cart = cartRepository.findByOwnerRef(principal.getID());
-		
-		boolean productAlreadyInCart = false;
-		for ( Cart item : user_cart )
+		if (principal != null)
 		{
-			if (item.getProductRef() == product_id)
+			List<Cart> user_cart = cartRepository.findByOwnerRef(principal.getID());
+			
+			boolean productAlreadyInCart = false;
+			for ( Cart item : user_cart )
 			{
-				productAlreadyInCart = true;
+				if (item.getProductRef() == product_id)
+				{
+					productAlreadyInCart = true;
+				}
 			}
-		}
-		
-		if (!productAlreadyInCart)
-		{	
-			Cart newCart = new Cart();
-			newCart.setProductRef(product_id);
-			newCart.setOwnerRef(principal.getID());
-			newCart.setQuantity(1);
 			
-			cartRepository.save(newCart);
-			
-			return "1";
+			if (!productAlreadyInCart)
+			{	
+				Cart newCart = new Cart();
+				newCart.setProductRef(product_id);
+				newCart.setOwnerRef(principal.getID());
+				newCart.setQuantity(1);
+				
+				cartRepository.save(newCart);
+				
+				return "1";
+			}
 		}
 		return "0";
     }

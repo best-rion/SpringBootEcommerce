@@ -56,7 +56,6 @@ public class HomeController
 			List<Product> products = (List<Product>) productRepository.findAll();		
 			
 			model.addAttribute("watches", products);
-			model.addAttribute("notLoggedIn", 0);
 			
 			return  "home";
 		}
@@ -96,7 +95,6 @@ public class HomeController
 	@GetMapping("/about")
     public String about(Model model)
 	{
-		model.addAttribute("notLoggedIn", 0);
 		return "about";
     }
 }
