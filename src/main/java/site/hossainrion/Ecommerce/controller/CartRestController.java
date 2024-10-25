@@ -4,15 +4,18 @@ package site.hossainrion.Ecommerce.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import site.hossainrion.Ecommerce.util.CurrentUser;
 import site.hossainrion.Ecommerce.model.Cart;
 import site.hossainrion.Ecommerce.model.Product;
+import site.hossainrion.Ecommerce.model.User;
 import site.hossainrion.Ecommerce.repository.CartRepository;
 import site.hossainrion.Ecommerce.repository.ProductRepository;
+import site.hossainrion.Ecommerce.repository.UserRepository;
 
 
 @RestController
@@ -24,38 +27,42 @@ public class CartRestController
 	@Autowired
 	ProductRepository productRepository;
 
-
+	@Autowired
+	UserRepository userRepository;
 
 	@PutMapping(value="/addToCart")
     String addToCart(@RequestBody String id)
 	{
-		if (CurrentUser.id != 0)
-		{
 
-			int product_id = Integer.parseInt(id);
-			
-			List<Cart> user_cart = cartRepository.findByOwnerRef(CurrentUser.id);
-			
-			boolean productAlreadyInCart = false;
-			for ( Cart item : user_cart )
+		int product_id = Integer.parseInt(id);
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username =  auth.getName();
+		User principal = userRepository.findByUsername(username);
+		
+		
+		
+		List<Cart> user_cart = cartRepository.findByOwnerRef(principal.getID());
+		
+		boolean productAlreadyInCart = false;
+		for ( Cart item : user_cart )
+		{
+			if (item.getProductRef() == product_id)
 			{
-				if (item.getProductRef() == product_id)
-				{
-					productAlreadyInCart = true;
-				}
+				productAlreadyInCart = true;
 			}
+		}
+		
+		if (!productAlreadyInCart)
+		{	
+			Cart newCart = new Cart();
+			newCart.setProductRef(product_id);
+			newCart.setOwnerRef(principal.getID());
+			newCart.setQuantity(1);
 			
-			if (!productAlreadyInCart)
-			{	
-				Cart newCart = new Cart();
-				newCart.setProductRef(product_id);
-				newCart.setOwnerRef(CurrentUser.id);
-				newCart.setQuantity(1);
-				
-				cartRepository.save(newCart);
-				
-				return "1";
-			}
+			cartRepository.save(newCart);
+			
+			return "1";
 		}
 		return "0";
     }
@@ -67,7 +74,11 @@ public class CartRestController
 	{
 		int product_id = Integer.parseInt(id);
 		
-		List<Cart> cart_items= cartRepository.findByOwnerRef(CurrentUser.id);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username =  auth.getName();
+		User principal = userRepository.findByUsername(username);
+		
+		List<Cart> cart_items= cartRepository.findByOwnerRef(principal.getID());
 		
 		for ( Cart cart_item : cart_items )
 		{
@@ -97,7 +108,12 @@ public class CartRestController
 	{
 		int product_id = Integer.parseInt(id);
 		
-		List<Cart> cart_items= cartRepository.findByOwnerRef(CurrentUser.id);
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username =  auth.getName();
+		User principal = userRepository.findByUsername(username);
+		
+		List<Cart> cart_items= cartRepository.findByOwnerRef(principal.getID());
 		
 
 		for ( Cart cart_item : cart_items )
@@ -124,7 +140,11 @@ public class CartRestController
 	{
 		int product_id = Integer.parseInt(id);
 		
-		cartRepository.deleteByProductRefAndOwnerRef(product_id, CurrentUser.id);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username =  auth.getName();
+		User principal = userRepository.findByUsername(username);
+		
+		cartRepository.deleteByProductRefAndOwnerRef(product_id, principal.getID());
 		
     }
 	

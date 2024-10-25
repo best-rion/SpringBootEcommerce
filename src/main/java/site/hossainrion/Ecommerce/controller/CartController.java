@@ -14,6 +14,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +29,6 @@ import site.hossainrion.Ecommerce.model.Cart;
 import site.hossainrion.Ecommerce.model.User;
 import site.hossainrion.Ecommerce.repository.ProductRepository;
 import site.hossainrion.Ecommerce.repository.UserRepository;
-import site.hossainrion.Ecommerce.util.CurrentUser;
 import site.hossainrion.Ecommerce.util.PdfCreator;
 import site.hossainrion.Ecommerce.repository.CartRepository;
 
@@ -48,7 +49,11 @@ public class CartController
 	@GetMapping("/cart")
     public String cart(Model model) throws IOException
 	{
-		List<Cart> cart_items = cartRepository.findByOwnerRef(CurrentUser.id);
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User principal = (User) auth.getPrincipal();
+		
+		List<Cart> cart_items = cartRepository.findByOwnerRef(principal.getID());
 		
 		List<CartDTO> items = new ArrayList<CartDTO>();
 		
@@ -68,14 +73,18 @@ public class CartController
 		model.addAttribute("totalQty", totalQty);
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("items", items);
-		model.addAttribute("notLoggedIn", (CurrentUser.id == 0));
+		model.addAttribute("notLoggedIn", 0);
 		return "cart";
     }
 	
 	@GetMapping("/printCart")
     public String printCart(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
-		List<Cart> cart_items = cartRepository.findByOwnerRef(CurrentUser.id);
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User principal = (User) auth.getPrincipal();
+		
+		List<Cart> cart_items = cartRepository.findByOwnerRef(principal.getID());
 		
 		List<CartDTO> items = new ArrayList<CartDTO>();
 		for (Cart cart_item : cart_items)
@@ -94,7 +103,7 @@ public class CartController
 		
 		try
 		{
-			User theUser = userRepository.findById(CurrentUser.id);
+			User theUser = userRepository.findById(principal.getID());
 
 			ByteArrayOutputStream document = PdfCreator.create(items, theUser.getUsername());
 			ByteArrayInputStream is = new ByteArrayInputStream(document.toByteArray());
