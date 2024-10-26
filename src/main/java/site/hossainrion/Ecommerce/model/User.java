@@ -17,7 +17,11 @@ import jakarta.persistence.UniqueConstraint;
 import site.hossainrion.Ecommerce.util.BCrypt;
 
 @Entity
+<<<<<<< HEAD
 @Table( name = "user", uniqueConstraints={@UniqueConstraint(columnNames = {"username"})})
+=======
+@Table( name = "\"user\"", uniqueConstraints={@UniqueConstraint(columnNames = {"username"})})
+>>>>>>> 401519b (Inititalized)
 public class User implements UserDetails
 {
 	private static final long serialVersionUID = -5582276510868868161L;

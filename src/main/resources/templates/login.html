@@ -35,11 +35,27 @@
 				        <div th:if="${param.logout}">
 				            You have been logged out.
 				        </div>
+<<<<<<< HEAD
 				        <form th:action="@{/login}" method="post">
 				            <div><label> User Name : <input type="text" name="username"/> </label></div>
 				            <div><label> Password  : <input type="password" name="password"/> </label></div>
 				            <div><input type="submit" value="Sign In"/></div>
 				        </form>
+=======
+						<form th:action="@{/login}" method="post">
+																				
+							  <div class="form-group">
+				 				<input type="text"  name="username" class="form-control" placeholder="Username">
+				 			  </div>
+							  <br><br>
+							  <div class="form-group">
+							    <input type="password" name="password" class="form-control" placeholder="Password">
+							  </div>
+	                          <br>
+							  <input class="btn btn-primary my-3" type="submit" value="Sign In"/>
+						  
+						</form>
+>>>>>>> 401519b (Inititalized)
 
                         <div>
                             <p> <a th:href="@{/signup}">Create account</a></p>

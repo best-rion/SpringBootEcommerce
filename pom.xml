@@ -104,10 +104,18 @@
 		    <groupId>org.springframework.boot</groupId>
   			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+<<<<<<< HEAD
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<version>9.1.0</version>
+=======
+		
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+>>>>>>> 401519b (Inititalized)
 		</dependency>
 
 		

@@ -10825,11 +10825,30 @@ textarea.form-control-lg {
   }
 }
 
+<<<<<<< HEAD
 
 
 
 #logout
 {
+=======
+.navbar
+{
+	width: 100%;
+	position:fixed;
+	top: 0px;
+	z-index: 1;
+}
+.nav-link
+{
+	padding-left:10px;
+	padding-right:10px;
+}
+
+#logout
+{
+	text-align: left;
+>>>>>>> 401519b (Inititalized)
 	border: none;
 	background-color: transparent;
 	margin-left: 10px;

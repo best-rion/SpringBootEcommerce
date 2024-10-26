@@ -12,6 +12,7 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
+<<<<<<< HEAD
 				<b class="navbar-brand">WATCH SHOP</b>                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
@@ -30,6 +31,23 @@
 				<form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
 		            <input type="submit" value="Log Out" id="logout"/>
 		        </form>
+=======
+				<b class="navbar-brand">WATCH SHOP</b>
+			    <a class="nav-link" th:href="@{/home}">Home</a>
+			    <a class="nav-link" th:href="@{/about}">About</a>
+			
+				<a class="btn btn-outline-success" type="submit" th:href="@{/cart}">
+				    Cart
+				    <span class="badge bg-success text-white ms-1 rounded-pill" id="itemNumber" th:text="${totalQty}"></span>
+				</a>
+				
+			    <a sec:authorize="!isAuthenticated()" class="nav-link" th:href="@{/login}">Login</a>
+			    <a sec:authorize="!isAuthenticated()" class="nav-link" th:href="@{/signup}">SignUp</a>
+
+				<form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+				    <input type="submit" value="Log Out" id="logout"></input>
+				</form>
+>>>>>>> 401519b (Inititalized)
             </div>
         </nav>
 
@@ -83,7 +101,36 @@
 
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<<<<<<< HEAD
         <script th:src="@{/js/PutToCart.js}"></script>
+=======
+        <script>
+			function putRequest(product_id)
+			{
+				fetch
+				(		
+				/*<![CDATA[*/
+
+				   "[[${url_address}]]/addToCart",
+
+				/*]]>*/
+					{
+				        method: 'PUT',
+				        headers: {'Content-Type': 'text/plain'},
+				        body: product_id
+			    	}
+				)
+				.then(response=>response.text())
+				.then(body=>{
+					if (body === "1")
+					{
+						var itemNumber = document.getElementById("itemNumber")
+						itemNumber.innerHTML = ""+(parseInt(itemNumber.innerHTML)+1)
+					} 
+				})
+			}
+		</script>
+>>>>>>> 401519b (Inititalized)
     </body>
 </html>
 v
