@@ -13,11 +13,7 @@ import site.hossainrion.Ecommerce.model.Cart;
 
 public interface CartRepository extends CrudRepository<Cart, Integer> 
 {	
-<<<<<<< HEAD
-	@Query(value = "SELECT * from cart where owner_ref = :userId AND sold = 0", nativeQuery = true)
-=======
 	@Query(value = "SELECT * from cart where owner_ref = :userId AND sold = false", nativeQuery = true)
->>>>>>> 401519b (Inititalized)
 	List<Cart> findByOwnerRef(int userId);
 	
 	@Modifying

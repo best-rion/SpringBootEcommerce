@@ -29,10 +29,7 @@ import site.hossainrion.Ecommerce.model.Cart;
 import site.hossainrion.Ecommerce.model.User;
 import site.hossainrion.Ecommerce.repository.ProductRepository;
 import site.hossainrion.Ecommerce.repository.UserRepository;
-<<<<<<< HEAD
-=======
 import site.hossainrion.Ecommerce.util.Ip;
->>>>>>> 401519b (Inititalized)
 import site.hossainrion.Ecommerce.util.PdfCreator;
 import site.hossainrion.Ecommerce.repository.CartRepository;
 
@@ -77,10 +74,7 @@ public class CartController
 		model.addAttribute("totalQty", totalQty);
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("items", items);
-<<<<<<< HEAD
-=======
 		model.addAttribute("url_address", Ip.getIp());
->>>>>>> 401519b (Inititalized)
 		return "cart";
     }
 	

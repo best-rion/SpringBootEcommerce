@@ -18,10 +18,7 @@ import site.hossainrion.Ecommerce.model.User;
 import site.hossainrion.Ecommerce.repository.CartRepository;
 import site.hossainrion.Ecommerce.repository.ProductRepository;
 import site.hossainrion.Ecommerce.repository.UserRepository;
-<<<<<<< HEAD
-=======
 import site.hossainrion.Ecommerce.util.Ip;
->>>>>>> 401519b (Inititalized)
 
 
 @Controller
@@ -60,10 +57,7 @@ public class HomeController
 			List<Product> products = (List<Product>) productRepository.findAll();		
 			
 			model.addAttribute("watches", products);
-<<<<<<< HEAD
-=======
 			model.addAttribute("url_address", Ip.getIp());
->>>>>>> 401519b (Inititalized)
 			
 			return  "home";
 		}
@@ -92,10 +86,7 @@ public class HomeController
 			
 			model.addAttribute("totalQty", totalQty);
 			model.addAttribute("watches", products);
-<<<<<<< HEAD
-=======
 			model.addAttribute("url_address", Ip.getIp());
->>>>>>> 401519b (Inititalized)
 			return "home";
 		}
 		else
