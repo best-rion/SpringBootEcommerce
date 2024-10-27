@@ -11,29 +11,27 @@
 <body>
 	
 	<!-- Navigation-->
-	       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	           <div class="container px-4 px-lg-5">
-					<b class="navbar-brand">WATCH SHOP</b>
-	               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-	               <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	                   <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-	                       <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a></li>
-	                       <li class="nav-item"><a class="nav-link" th:href="@{/about}">About</a></li>
-	                   </ul>
-	                   <button class="btn btn-outline-success" type="submit" th:href="@{/cart}">
-	                       Cart
-	                       <span class="badge bg-success text-white ms-1 rounded-pill" id="itemNumber"  th:text="${totalQty}"></span>
-	                   </button>
-	               </div>
-	               <ul th:if="${notLoggedIn}" class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-	                   <li class="nav-item"><a class="nav-link" th:href="@{/login}">Login</a></li>
-	                   <li class="nav-item"><a class="nav-link" th:href="@{/signup}">SignUp</a></li>
-	               </ul>
-				   <form th:unless="${notLoggedIn}"  th:action="@{/logout}" method="post">
-	   		            <input type="submit" value="Log Out" id="logout"/>
-	   		        </form>
-	           </div>
-	       </nav>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+
+			<b class="navbar-brand">WATCH SHOP</b>
+		    <a class="nav-link" th:href="@{/home}">Home</a>
+		    <a class="nav-link" th:href="@{/about}">About</a>
+		
+			<a class="btn btn-outline-success" type="submit" th:href="@{/cart}">
+			    Cart
+			    <span class="badge bg-success text-white ms-1 rounded-pill" id="itemNumber" th:text="${totalQty}"></span>
+			</a>
+			
+		    <a sec:authorize="!isAuthenticated()" class="nav-link" th:href="@{/login}">Login</a>
+		    <a sec:authorize="!isAuthenticated()" class="nav-link" th:href="@{/signup}">SignUp</a>
+
+			<form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+			    <input type="submit" value="Log Out" id="logout"></input>
+			</form>
+
+        </div>
+    </nav>
 	
 <div class="container-fluid my-5">
 	
