@@ -1,0 +1,27 @@
+body
+{
+	background-color: rgb(213, 241, 223);
+}
+
+
+.navbar
+{
+	width: 100%;
+	position:fixed;
+	top: 0px;
+	z-index: 1;
+}
+.nav-link
+{
+	padding-left:10px;
+	padding-right:10px;
+}
+
+#logout
+{
+	text-align: left;
+	border: none;
+	background-color: transparent;
+	margin-left: 10px;
+	font-weight: 200; 
+}

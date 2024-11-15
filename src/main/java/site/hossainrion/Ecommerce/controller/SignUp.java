@@ -26,7 +26,7 @@ public class SignUp
 	}
 	
 	@PostMapping("/signup")
-	public String signupPost(@ModelAttribute UserDTO user, Model model)
+	public String signupPost(@ModelAttribute UserDTO user)
 	{
     	if ( user.getPassword().equals(user.getConfirm_password()))
     	{

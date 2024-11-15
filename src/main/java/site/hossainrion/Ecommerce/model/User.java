@@ -27,14 +27,14 @@ public class User implements UserDetails
 	private String username;
 	private String password;
 	private boolean enabled = true;
-	private String authority = "CUSTOMER";
+	private String authority;
 	
 	@Override
 	public List<GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
 		
 		List<GrantedAuthority> auth = new ArrayList<>();
-	    auth.add(new SimpleGrantedAuthority("CUSTOMER"));
+	    auth.add(new SimpleGrantedAuthority(authority));
 		
 		return auth;
 	}
