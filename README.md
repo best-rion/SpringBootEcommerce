@@ -4,4 +4,4 @@ Future pospects:
 * Searching
 * Pagination
 * ~~Security upgrade~~
-* Sales report feature
+* ~~Sales report feature~~
