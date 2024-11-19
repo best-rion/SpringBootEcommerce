@@ -2,8 +2,6 @@ package site.hossainrion.Ecommerce.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -90,8 +88,6 @@ public class ReportController
 
             row_num++;
         }
-
-        String fileLocation = "/home/hossain/Desktop/temp.xlsx";
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         workbook.write(outputStream);

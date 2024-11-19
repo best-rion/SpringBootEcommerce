@@ -77,7 +77,7 @@ public class CartController
     }
 	
 	@GetMapping("/printCart")
-    public String printCart(HttpServletRequest request, HttpServletResponse response) throws IOException
+    public void printCart(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -112,13 +112,11 @@ public class CartController
 										                    .filename("receipt.pdf", StandardCharsets.UTF_8)
 										                    .build()
 										                    .toString());
-			is.transferTo(response.getOutputStream());
+			is.transferTo( response.getOutputStream() );
 		}
 		catch(FileNotFoundException | DocumentException | URISyntaxException  ex)
 		{
 			ex.printStackTrace();
 		}
-
-		return "redirect:/cart";
     }
 }

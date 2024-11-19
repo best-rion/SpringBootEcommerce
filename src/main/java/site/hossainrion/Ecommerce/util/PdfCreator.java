@@ -41,8 +41,6 @@ public class PdfCreator
 		document.open();
 		
 		// Header
-		
-
 		Paragraph header = new Paragraph("WATCH SHOP", new Font(Font.FontFamily.HELVETICA, 25, Font.BOLD));
 		header.setAlignment(Element.ALIGN_CENTER);
 		header.setSpacingAfter(12.0f);
@@ -50,7 +48,6 @@ public class PdfCreator
 		document.add(header);
 		
 		// UserInfo
-		
 		String name = String.format("Customer   :    %s", username);
 		Paragraph customerName = new Paragraph(name, new Font(Font.FontFamily.HELVETICA));
 		customerName.setSpacingAfter(20.0f);
@@ -62,7 +59,7 @@ public class PdfCreator
 		PdfPTable table = new PdfPTable(5);
 		addTableHeader(table);
 		
-				// My Code
+		// My Code
 		int totalPrice = 0;
 		
 		for (CartDTO item : items)
@@ -94,10 +91,11 @@ public class PdfCreator
 		addTranparentRows(table, "");
 		addTranparentRows(table, "Shipping Fee:");
 		addTranparentRows(table, "60");
-		addTranparentRows(table, "");
-		addTranparentRows(table, "");
-		addTranparentRows(table, "");
 		
+		
+		addTranparentRows(table, "");
+		addTranparentRows(table, "");
+		addTranparentRows(table, "");
 		PdfPCell cell = new PdfPCell();
         cell.setPhrase(new Phrase("Total Amount:"));
 		cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
@@ -105,7 +103,6 @@ public class PdfCreator
 		cell.setBorderWidthRight(0.0f);
 		cell.setBorderWidthBottom(0.0f);
 	    table.addCell(cell);
-		//addTranparentRows(table, "Total Amount:");
 	    
 	    
 	    cell = new PdfPCell();
@@ -115,7 +112,6 @@ public class PdfCreator
 		cell.setBorderWidthRight(0.0f);
 		cell.setBorderWidthBottom(0.0f);
 	    table.addCell(cell);
-		//addTranparentRows(table, String.format("%d", totalPrice+60));
 		
 		document.add(table);
 		
@@ -127,7 +123,8 @@ public class PdfCreator
 	
 	
 	
-	private static void addTableHeader(PdfPTable table) {
+	private static void addTableHeader(PdfPTable table) 
+	{
 	    Stream.of("Image", "Brand", "Model", "Quantity", "Price")
 	      .forEach(columnTitle -> {
 	        PdfPCell header = new PdfPCell();
@@ -140,11 +137,13 @@ public class PdfCreator
 	}
 	
 	
-	private static void addRows(PdfPTable table, String cell) {
+	private static void addRows(PdfPTable table, String cell) 
+	{
 	    table.addCell(cell);
 	}
 	
-	private static void addTranparentRows(PdfPTable table, String content) {
+	private static void addTranparentRows(PdfPTable table, String content) 
+	{
 		PdfPCell cell = new PdfPCell();
 		cell.setBorderWidth(0);
 		cell.setPhrase(new Phrase(content));

@@ -85,10 +85,10 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 		
 		<script>
+			const csrfToken = document.head.querySelector("[name~=_csrf][content]").content;
+			
 			function putRequest(product_id)
 			{
-				const csrfToken = document.head.querySelector("[name~=_csrf][content]").content;
-				
 				fetch
 				(
 					"http://localhost:8080/addToCart",
