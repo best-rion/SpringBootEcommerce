@@ -13,11 +13,13 @@ import site.hossainrion.Ecommerce.model.Cart;
 
 public interface CartRepository extends CrudRepository<Cart, Integer> 
 {	
+	public List<Cart> findAll();
+	
 	@Query(value = "SELECT * from cart where owner_ref = :userId AND sold = 0", nativeQuery = true)
-	List<Cart> findByOwnerRef(int userId);
+	public List<Cart> findByOwnerRef(int userId);
 	
 	@Modifying
 	@Transactional
 	@Query(value = "DELETE FROM cart WHERE product_ref=:productId AND owner_ref=:ownerId", nativeQuery = true)
-	void deleteByProductRefAndOwnerRef(@Param("productId") int productId, @Param("ownerId") int ownerId);
+	public void deleteByProductRefAndOwnerRef(@Param("productId") int productId, @Param("ownerId") int ownerId);
 }

@@ -150,7 +150,6 @@ public class CartRestController
 		User principal = userRepository.findByUsername(username);
 		
 		cartRepository.deleteByProductRefAndOwnerRef(product_id, principal.getID());
-		
     }
 	
 }

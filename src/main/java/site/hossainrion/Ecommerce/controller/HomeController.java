@@ -41,7 +41,6 @@ public class HomeController
 	@GetMapping("/home")
     public String home(Model model) throws IOException
 	{
-		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username =  auth.getName();
 		User principal = userRepository.findByUsername(username);
@@ -53,7 +52,7 @@ public class HomeController
 		}
 		else
 		{
-			List<Product> products = (List<Product>) productRepository.findAll();		
+			List<Product> products = productRepository.findAll();		
 			
 			model.addAttribute("watches", products);
 			
@@ -66,17 +65,17 @@ public class HomeController
 	{
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String username =  auth.getName();
+		String username = auth.getName();
 		User principal = userRepository.findByUsername(username);
 		
 		if (id == principal.getID())
 		{
-			List<Product> products = (List<Product>) productRepository.findAll();
+			List<Product> products = productRepository.findAll();
 			
-			List<Cart> cart_items = cartRepository.findByOwnerRef(id);
+			List<Cart> cart_items  = cartRepository.findByOwnerRef(id);
 			
 			
-			int totalQty = 0;
+			int totalQty = 0; 
 			for (Cart cart_item : cart_items )
 			{
 				totalQty += cart_item.getQuantity();

@@ -34,7 +34,7 @@ public class User implements UserDetails
 		// TODO Auto-generated method stub
 		
 		List<GrantedAuthority> auth = new ArrayList<>();
-	    auth.add(new SimpleGrantedAuthority(authority));
+	    auth.add(new SimpleGrantedAuthority( "CUSTOMER" ));
 		
 		return auth;
 	}

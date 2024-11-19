@@ -1,24 +1,4 @@
 
-function putRequest(product_id)
-{
-	fetch
-	(
-		"http://localhost:8080/addToCart",
-		{
-	        method: 'PUT',
-	        headers: {'Content-Type': 'text/plain'},
-	        body: product_id
-    	}
-	)
-	.then(response=>response.text())
-	.then(body=>{
-		if (body === "1")
-		{
-			var itemNumber = document.getElementById("itemNumber")
-			itemNumber.innerHTML = ""+(parseInt(itemNumber.innerHTML)+1)
-		} 
-	})
-}
 
 function increaseQuantity(product_id)
 {
