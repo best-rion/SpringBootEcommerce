@@ -29,17 +29,18 @@ public class SecurityConfiguration
 	        	authReq
 	        		.requestMatchers("/cart", "/addToCart", "/increaseQty", "/decreaseQty").hasAuthority("CUSTOMER")
 	        		.requestMatchers("/admin").hasAuthority("ADMIN")
-	        		.requestMatchers("/", "/home", "/about", "/signup", "/css/**", "/js/**", "/images/**").permitAll()
+	        		.requestMatchers("/", "/home/page-*", "/about", "/signup", "/css/**", "/js/**", "/images/**").permitAll()
 	        		.anyRequest().authenticated()
         	)
         	.formLogin((loginCustomizer) ->
         		loginCustomizer
 	        		.loginPage("/login")
+	        		.defaultSuccessUrl("/", true)
 	        		.permitAll()
         	)
         	.logout((logout) -> 
 	        	logout
-	        		.logoutSuccessUrl("/home")
+	        		.logoutSuccessUrl("/")
 	        		.permitAll()
 	        );	
         

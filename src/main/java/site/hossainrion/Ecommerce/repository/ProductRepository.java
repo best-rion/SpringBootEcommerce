@@ -1,14 +1,14 @@
 package site.hossainrion.Ecommerce.repository;
 
-
-import java.util.List;
-
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import site.hossainrion.Ecommerce.model.Product;
 
-public interface ProductRepository extends CrudRepository<Product, Integer> 
-{
+public interface ProductRepository extends JpaRepository<Product, Integer> {
+
+	public Page<Product> findAll(Pageable p);
+	
 	public Product findById(int id);
-	public List<Product> findAll();
 }

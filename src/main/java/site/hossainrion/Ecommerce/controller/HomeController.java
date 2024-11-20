@@ -3,10 +3,12 @@ package site.hossainrion.Ecommerce.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +19,7 @@ import site.hossainrion.Ecommerce.model.Product;
 import site.hossainrion.Ecommerce.model.User;
 import site.hossainrion.Ecommerce.repository.CartRepository;
 import site.hossainrion.Ecommerce.repository.ProductRepository;
-import site.hossainrion.Ecommerce.repository.UserRepository;
+import site.hossainrion.Ecommerce.service.MyUserDetailsService;
 
 
 @Controller
@@ -30,66 +32,96 @@ public class HomeController
 	CartRepository cartRepository;
 	
 	@Autowired
-	UserRepository userRepository;
+	MyUserDetailsService userDetailsService;
+	
 	
 	@GetMapping("/")
     public String defaultPage()
 	{
-		return  "redirect:/home";
+		return  "redirect:/home/page-1";
     }
 	
-	@GetMapping("/home")
-    public String home(Model model) throws IOException
-	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String username =  auth.getName();
-		User principal = userRepository.findByUsername(username);
-		
-		
-		if (principal != null)
-		{
-			return String.format("redirect:/home/user-%d", principal.getID());
-		}
-		else
-		{
-			List<Product> products = productRepository.findAll();		
-			
-			model.addAttribute("watches", products);
-			
-			return  "home";
-		}
-    }
 	
-	@GetMapping("/home/user-{id}")
-    public String homeUser(@PathVariable int id, Model model) throws IOException
+	@GetMapping("/home/page-{page}")
+    public String home(@PathVariable int page, Model model) throws IOException
 	{
+		User principal = userDetailsService.getPrincipal();
 		
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String username = auth.getName();
-		User principal = userRepository.findByUsername(username);
-		
-		if (id == principal.getID())
+		if (page > 0)
 		{
-			List<Product> products = productRepository.findAll();
-			
-			List<Cart> cart_items  = cartRepository.findByOwnerRef(id);
-			
-			
-			int totalQty = 0; 
-			for (Cart cart_item : cart_items )
+			if (principal != null)
 			{
-				totalQty += cart_item.getQuantity();
+				return String.format("redirect:/home/page-%d/user-%d", page, principal.getID());
 			}
-			
-			model.addAttribute("totalQty", totalQty);
-			model.addAttribute("watches", products);
-			return "home";
+			else
+			{
+				Page<Product> productPage = productRepository.findAll( PageRequest.of(page-1, 8) );
+				
+				int totalPages = productPage.getTotalPages();
+		        if (totalPages > 0) {
+		            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+		                .boxed()
+		                .collect(Collectors.toList());
+		            model.addAttribute("pageNumbers", pageNumbers);
+		        }
+				
+				model.addAttribute("productPage", productPage );
+				
+				return  "home";
+			}
 		}
 		else
 		{
-			return String.format("redirect:/home/user-%d", principal.getID());
+			return  "about";
 		}
     }
+	
+	
+	@GetMapping("/home/page-{page}/user-{id}")
+    public String homeUser(@PathVariable int page, @PathVariable int id, Model model) throws IOException
+	{
+		User principal = userDetailsService.getPrincipal();
+		
+		if (page > 0)
+		{
+			if (id == principal.getID())
+			{
+				Page<Product> productPage = productRepository.findAll( PageRequest.of(page-1, 8) );
+				
+				List<Cart> cart_items  = cartRepository.findByOwnerRef(id);
+				
+				
+				int totalQty = 0; 
+				for (Cart cart_item : cart_items )
+				{
+					totalQty += cart_item.getQuantity();
+				}
+				
+				
+				int totalPages = productPage.getTotalPages();
+		        if (totalPages > 0) {
+		            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+		                .boxed()
+		                .collect(Collectors.toList());
+		            model.addAttribute("pageNumbers", pageNumbers);
+		        }
+				
+				
+				model.addAttribute("totalQty", totalQty);
+				model.addAttribute("productPage", productPage);
+				return "home";
+			}
+			else
+			{
+				return String.format("redirect:/home/page-%d/user-%d", page, principal.getID());
+			}
+		}
+		else
+		{
+			return "about";
+		}
+    }
+	
 	
 	@GetMapping("/about")
     public String about(Model model)
