@@ -2,6 +2,6 @@ This is my first big project, creating an Ecommerce website with model and views
 
 Future pospects:
 * Searching
-* Pagination
+* ~~Pagination~~
 * ~~Security upgrade~~
 * ~~Sales report feature~~
