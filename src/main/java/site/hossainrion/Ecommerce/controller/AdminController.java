@@ -32,7 +32,7 @@ public class AdminController
 		
 		productRepository.save(product);
 		
-		return "redirect:admin";
+		return "redirect:/ecommerce/admin";
 
     }
 }

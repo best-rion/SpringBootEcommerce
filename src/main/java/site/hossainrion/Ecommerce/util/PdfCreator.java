@@ -30,7 +30,7 @@ import site.hossainrion.Ecommerce.DTO.CartDTO;
 public class PdfCreator
 {
 	
-	public static ByteArrayOutputStream create(List<CartDTO> items, String username) throws DocumentException, URISyntaxException, IOException
+	public ByteArrayOutputStream create(List<CartDTO> items, String username) throws DocumentException, URISyntaxException, IOException
 	{
 
 		Document document = new Document();
@@ -123,7 +123,7 @@ public class PdfCreator
 	
 	
 	
-	private static void addTableHeader(PdfPTable table) 
+	private void addTableHeader(PdfPTable table)
 	{
 	    Stream.of("Image", "Brand", "Model", "Quantity", "Price")
 	      .forEach(columnTitle -> {
@@ -137,12 +137,12 @@ public class PdfCreator
 	}
 	
 	
-	private static void addRows(PdfPTable table, String cell) 
+	private void addRows(PdfPTable table, String cell)
 	{
 	    table.addCell(cell);
 	}
 	
-	private static void addTranparentRows(PdfPTable table, String content) 
+	private void addTranparentRows(PdfPTable table, String content)
 	{
 		PdfPCell cell = new PdfPCell();
 		cell.setBorderWidth(0);
@@ -152,7 +152,7 @@ public class PdfCreator
 	    table.addCell(cell);
 	}
 	
-	private static void addImageToCell(PdfPTable table, Image img) throws URISyntaxException, BadElementException, MalformedURLException, IOException
+	private void addImageToCell(PdfPTable table, Image img) throws URISyntaxException, BadElementException, MalformedURLException, IOException
 	{
 	    img.scalePercent(20);
 
@@ -163,7 +163,7 @@ public class PdfCreator
 	}
 	
 
-	private static Image linkToImage(String link) throws IOException, BadElementException
+	private Image linkToImage(String link) throws IOException, BadElementException
 	{
 		URL url = new URL(link);
 		BufferedImage img = ImageIO.read(url);

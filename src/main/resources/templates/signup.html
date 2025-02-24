@@ -29,7 +29,7 @@
                     <div class="col-md-4">
 						
 						<h2>Sign Up</h2>
-						<form action="#" th:action="@{/signup}" th:object="${userInfo}" method="post">
+						<form action="#" th:action="@{/ecommerce/signup}" th:object="${userInfo}" method="post">
 							
 						  <div class="form-group">
 			 				<input type="text" th:field="*{username}" class="form-control" placeholder="Username">
@@ -48,7 +48,7 @@
 						</form>
 
                         <div>
-                            <p>Already have an account? <a th:href="@{/login}">login</a></p>
+                            <p>Already have an account? <a th:href="@{/ecommerce/login}">login</a></p>
                         </div>
 
                  	 <div class="col-md-4"></div>

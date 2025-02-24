@@ -27,22 +27,23 @@ public class SecurityConfiguration
         	.csrf( Customizer.withDefaults() )
         	.authorizeHttpRequests((authReq) ->
 	        	authReq
-	        		.requestMatchers("/cart", "/addToCart", "/increaseQty", "/decreaseQty").hasAuthority("CUSTOMER")
-	        		.requestMatchers("/admin").hasAuthority("ADMIN")
-	        		.requestMatchers("/", "/home/page-*", "/about", "/signup", "/css/**", "/js/**", "/images/**").permitAll()
-	        		.anyRequest().authenticated()
+						.requestMatchers("/admin").hasAuthority("ADMIN")
+						.requestMatchers("/cart", "/addToCart", "/increaseQty", "/decreaseQty").hasAnyAuthority("CUSTOMER","ADMIN")
+	        			.requestMatchers("/", "/home/page-*", "/about", "/signup", "/css/**", "/js/**", "/images/**").permitAll()
+	        			.anyRequest().authenticated()
         	)
         	.formLogin((loginCustomizer) ->
         		loginCustomizer
-	        		.loginPage("/login")
-	        		.defaultSuccessUrl("/", true)
+	        		.loginPage("/ecommerce/login")
+						.loginProcessingUrl("/login")
+	        		.defaultSuccessUrl("/ecommerce", true)
 	        		.permitAll()
         	)
         	.logout((logout) -> 
 	        	logout
-	        		.logoutSuccessUrl("/")
+	        		.logoutSuccessUrl("/ecommerce")
 	        		.permitAll()
-	        );	
+	        );
         
     	return http.build();
     }

@@ -52,7 +52,7 @@ public class CartController
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User principal = (User) auth.getPrincipal();
 		
-		List<Cart> cart_items = cartRepository.findByOwnerRef(principal.getID());
+		List<Cart> cart_items = cartRepository.findByOwnerId(principal.getID());
 		
 		List<CartDTO> items = new ArrayList<CartDTO>();
 		
@@ -61,7 +61,7 @@ public class CartController
 		for (Cart cart_item : cart_items)
 		{
 			CartDTO item = new CartDTO();
-			item.product = productRepository.findById(cart_item.getProductRef());
+			item.product = cart_item.getProduct();
 			item.quantity = cart_item.getQuantity();
 			items.add(item);
 			
@@ -82,18 +82,18 @@ public class CartController
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User principal = (User) auth.getPrincipal();
 		
-		List<Cart> cart_items = cartRepository.findByOwnerRef(principal.getID());
+		List<Cart> cart_items = cartRepository.findByOwnerId(principal.getID());
 		
 		List<CartDTO> items = new ArrayList<CartDTO>();
 		for (Cart cart_item : cart_items)
 		{
 			CartDTO item = new CartDTO();
-			item.product = productRepository.findById(cart_item.getProductRef());
+			item.product = cart_item.getProduct();
 			item.quantity = cart_item.getQuantity();
 			
 			items.add(item);
 			
-			cart_item.setSold(true);
+			cart_item.setSold(1);
 			cart_item.setSoldDate(new Date());
 			cartRepository.save(cart_item);
 		}
@@ -102,7 +102,9 @@ public class CartController
 		{
 			User theUser = userRepository.findById(principal.getID());
 
-			ByteArrayOutputStream document = PdfCreator.create(items, theUser.getUsername());
+			PdfCreator pdfCreator = new PdfCreator();
+
+			ByteArrayOutputStream document = pdfCreator.create(items, theUser.getUsername());
 			ByteArrayInputStream is = new ByteArrayInputStream(document.toByteArray());
 			
 			response.setContentType("application/pdf");

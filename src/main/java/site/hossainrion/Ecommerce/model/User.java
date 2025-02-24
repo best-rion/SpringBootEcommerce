@@ -14,7 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import site.hossainrion.Ecommerce.util.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 @Table( name = "user", uniqueConstraints={@UniqueConstraint(columnNames = {"username"})})
@@ -26,15 +26,14 @@ public class User implements UserDetails
 	private int id;
 	private String username;
 	private String password;
-	private boolean enabled = true;
-	private String authority;
+	private String authority = "CUSTOMER";
 	
 	@Override
 	public List<GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
 		
 		List<GrantedAuthority> auth = new ArrayList<>();
-	    auth.add(new SimpleGrantedAuthority( "CUSTOMER" ));
+	    auth.add(new SimpleGrantedAuthority( this.authority ));
 		
 		return auth;
 	}
@@ -66,17 +65,10 @@ public class User implements UserDetails
 	
 	public void setPassword(String password)
 	{
-		this.password = BCrypt.hash(password);
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		this.password = encoder.encode(password);
 	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
+	
 	public String getAuthority() {
 		return authority;
 	}

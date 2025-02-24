@@ -24,13 +24,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import jakarta.servlet.http.HttpServletResponse;
 import site.hossainrion.Ecommerce.model.Cart;
+import site.hossainrion.Ecommerce.model.Product;
 import site.hossainrion.Ecommerce.repository.CartRepository;
+import site.hossainrion.Ecommerce.repository.ProductRepository;
+import site.hossainrion.Ecommerce.repository.UserRepository;
 
 @Controller
 public class ReportController
 {
 	@Autowired
 	CartRepository cartRepo;
+	
+	@Autowired
+	UserRepository userRepo;
+	
+	@Autowired
+	ProductRepository productRepo;
 	
 	@GetMapping("/report")
 	public void report(Model model, HttpServletResponse response) throws IOException
@@ -56,11 +65,27 @@ public class ReportController
         headerStyle.setFont(font);
 
         Cell headerCell = header.createCell(0);
-        headerCell.setCellValue("Name");
+        headerCell.setCellValue("Cart ID");
         headerCell.setCellStyle(headerStyle);
 
         headerCell = header.createCell(1);
-        headerCell.setCellValue("Age");
+        headerCell.setCellValue("Customer");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(2);
+        headerCell.setCellValue("Product");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(3);
+        headerCell.setCellValue("Quantity");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(4);
+        headerCell.setCellValue("Price");
+        headerCell.setCellStyle(headerStyle);
+
+        headerCell = header.createCell(5);
+        headerCell.setCellValue("Date");
         headerCell.setCellStyle(headerStyle);
 
 
@@ -77,13 +102,31 @@ public class ReportController
         for (Cart cart: carts)
         {
             Row row = sheet.createRow( row_num );
+            
+            Product product = cart.getProduct();
 
             Cell cell = row.createCell(0);
             cell.setCellValue( cart.getId() );
             cell.setCellStyle(style);
     
             cell = row.createCell(1);
-            cell.setCellValue( cart.getSoldDate() );
+            cell.setCellValue( cart.getOwner().getUsername() );
+            cell.setCellStyle(style);
+    
+            cell = row.createCell(2);
+            cell.setCellValue( product.getBrand() );
+            cell.setCellStyle(style);
+    
+            cell = row.createCell(3);
+            cell.setCellValue( cart.getQuantity() );
+            cell.setCellStyle(style);
+    
+            cell = row.createCell(4);
+            cell.setCellValue( product.getPrice() );
+            cell.setCellStyle(style);
+    
+            cell = row.createCell(5);
+            cell.setCellValue( cart.getSoldDate().toString() );
             cell.setCellStyle(style);
 
             row_num++;

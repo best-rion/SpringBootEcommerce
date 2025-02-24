@@ -23,29 +23,27 @@ public class CartService
 	@Autowired
 	MyUserDetailsService userDetailsService;
 	
-	public String add(int product_id)
+	public String add(int product_id, User principal)
 	{
-		User principal = userDetailsService.getPrincipal();
-		
 		if (principal != null)
 		{
-			List<Cart> user_cart = cartRepository.findByOwnerRef(principal.getID());
+			List<Cart> user_cart = cartRepository.findByOwnerId(principal.getID());
 			
 			boolean productAlreadyInCart = false;
 			
 			for ( Cart item : user_cart )
 			{
-				if (item.getProductRef() == product_id)
-				{
-					productAlreadyInCart = true;
-				}
+                if (item.getProduct().getId() == product_id) {
+                    productAlreadyInCart = true;
+                    break;
+                }
 			}
 			
 			if (!productAlreadyInCart)
 			{	
 				Cart newCart = new Cart();
-				newCart.setProductRef(product_id);
-				newCart.setOwnerRef(principal.getID());
+				newCart.setProduct( productRepository.findById(product_id) );
+				newCart.setOwner( principal );
 				newCart.setQuantity(1);
 				
 				cartRepository.save(newCart);
@@ -62,7 +60,7 @@ public class CartService
 	{
 		User principal = userDetailsService.getPrincipal();
 		
-		cartRepository.deleteByProductRefAndOwnerRef(product_id, principal.getID());
+		cartRepository.deleteByProductAndOwner(product_id, principal.getID());
 	}
 	
 	
@@ -71,11 +69,11 @@ public class CartService
 	{
 		User principal = userDetailsService.getPrincipal();
 		
-		List<Cart> cart_items= cartRepository.findByOwnerRef(principal.getID());
+		List<Cart> cart_items= cartRepository.findByOwnerId(principal.getID());
 		
 		for ( Cart cart_item : cart_items )
 		{
-			if (cart_item.getProductRef() == product_id)
+			if (cart_item.getProduct().getId() == product_id)
 			{
 				
 				Product product = productRepository.findById(product_id);
@@ -100,11 +98,11 @@ public class CartService
 	{
 		User principal = userDetailsService.getPrincipal();
 		
-		List<Cart> cart_items= cartRepository.findByOwnerRef(principal.getID());
+		List<Cart> cart_items= cartRepository.findByOwnerId(principal.getID());
 		
 		for ( Cart cart_item : cart_items )
 		{
-			if (cart_item.getProductRef() == product_id)
+			if (cart_item.getProduct().getId() == product_id)
 			{
 				
 				Cart desired_item = cart_item;

@@ -2,13 +2,7 @@ package site.hossainrion.Ecommerce.model;
 
 import java.util.Date;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "cart")
@@ -17,14 +11,20 @@ public class Cart
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	
-	private int productRef;
+
+	@ManyToOne
+	private Product product;
 	private int quantity;
-	private int ownerRef;
-	private boolean sold = false;
+	@ManyToOne
+	private User owner;
+	private int sold = 0;
 	
 	@Temporal(TemporalType.DATE)
     private Date soldDate;
+
+	public Cart(){
+		this.soldDate = new Date();
+	}
 	
 	public int getId()
 	{
@@ -33,6 +33,22 @@ public class Cart
 	
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
 	
 	public int getQuantity()
@@ -44,27 +60,11 @@ public class Cart
 		this.quantity = quantity;
 	}
 
-	public int getProductRef() {
-		return productRef;
-	}
-
-	public void setProductRef(int productRef) {
-		this.productRef = productRef;
-	}
-
-	public int getOwnerRef() {
-		return ownerRef;
-	}
-
-	public void setOwnerRef(int ownerRef) {
-		this.ownerRef = ownerRef;
-	}
-
-	public boolean isSold() {
+	public int getSold() {
 		return sold;
 	}
 
-	public void setSold(boolean sold) {
+	public void setSold(int sold) {
 		this.sold = sold;
 	}
 
@@ -75,6 +75,4 @@ public class Cart
 	public void setSoldDate(Date soldDate) {
 		this.soldDate = soldDate;
 	}
-
-	
 }

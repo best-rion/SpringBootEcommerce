@@ -1,10 +1,12 @@
 package site.hossainrion.Ecommerce.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import site.hossainrion.Ecommerce.model.User;
 import site.hossainrion.Ecommerce.service.CartService;
 
 
@@ -15,11 +17,11 @@ public class CartRestController
 	CartService cartService;
 
 	@PutMapping(value="/addToCart")
-    String addToCart(@RequestBody String id)
+    String addToCart(@RequestBody String id, @AuthenticationPrincipal User principal)
 	{
 		int product_id = Integer.parseInt(id);
 		
-		String returnValue = cartService.add(product_id);
+		String returnValue = cartService.add(product_id, principal);
 		
 		return returnValue;
     }
